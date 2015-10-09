@@ -3,9 +3,37 @@ module Parser
     require 'open-uri'
     require 'nokogiri'
 
+    def self.download_all_categories
+      Category.all.each do |category|
+        start = Time.now
+        puts '+++++++++++++++++++++++++++++++++++++++'
+        puts 'Started category: ' + category.title
+        puts '+++++++++++++++++++++++++++++++++++++++'
+
+        Parser::Oxfol.get_items_from_category(category)
+
+        puts '+++++++++++++++++++++++++++++++++++++++'
+        puts 'Ends category: ' + category.title + ', with time'
+        puts '+++++++++++++++++++++++++++++++++++++++'
+      end
+    end
+
+    def self.get_items_from_category(category)
+      page = 1
+
+      loop do
+        items = Parser::Oxfol.get_gallery_items(category.title + '/page' + page.to_s + '/')
+        break if items.count == 0
+        Parser::Oxfol.create_gallery_items(items, category.id)
+        puts '+++++++++++++++++++++++++++++++++++++++'
+        puts 'Page: ' + page + ', Category:' + category.title + ' loaded.'
+        puts '+++++++++++++++++++++++++++++++++++++++'
+        page += 1
+      end
+    end
+
     def self.get_gallery_items(page)
-      source = 'http://oxfol.org/b/hot'
-      result = {}
+      source = 'http://oxfol.org/b/'
 
       page = Nokogiri::HTML(open(source.to_s + page))
 
@@ -21,11 +49,9 @@ module Parser
       objects
     end
 
-    def self.create_gallery_items
-      items = Parser::Oxfol.get_gallery_items('')
-      puts items
+    def self.create_gallery_items(items, category_id)
       items.each do |item|
-        new_item = GalleryItem.create(title: item[:title], category_id: 2)
+        new_item = GalleryItem.create(title: item[:title], category_id: category_id)
         img = new_item.build_gallery_item_image
         img.download_from_url(item[:img])
 
