@@ -4,29 +4,31 @@ module Parser
     require 'nokogiri'
 
     def self.download_all_categories
-      Category.all.each do |category|
-        start = Time.now
+      categories = get_categories
+
+      categories.all.each do |category|
+        c = Category.create(title: category[:title])
         puts '+++++++++++++++++++++++++++++++++++++++'
-        puts 'Started category: ' + category.title
+        puts 'Started category: ' + category[:title]
         puts '+++++++++++++++++++++++++++++++++++++++'
 
-        Parser::Oxfol.get_items_from_category(category)
+        Parser::Oxfol.get_items_from_category(category, c.id)
 
         puts '+++++++++++++++++++++++++++++++++++++++'
-        puts 'Ends category: ' + category.title + ', with time'
+        puts 'Ends category: ' + category[:title] + ', with time'
         puts '+++++++++++++++++++++++++++++++++++++++'
       end
     end
 
-    def self.get_items_from_category(category)
+    def self.get_items_from_category(category, id)
       page = 1
 
       loop do
-        items = Parser::Oxfol.get_gallery_items(category.title + '/page' + page.to_s + '/')
+        items = Parser::Oxfol.get_gallery_items(category[:link] + '/page' + page.to_s + '/')
         break if items.count == 0
-        Parser::Oxfol.create_gallery_items(items, category.id)
+        Parser::Oxfol.create_gallery_items(items, id)
         puts '+++++++++++++++++++++++++++++++++++++++'
-        puts 'Page: ' + page + ', Category:' + category.title + ' loaded.'
+        puts 'Page: ' + page + ', Category:' + category[:title] + ' loaded.'
         puts '+++++++++++++++++++++++++++++++++++++++'
         page += 1
       end
@@ -67,7 +69,8 @@ module Parser
 
       page.css('#blogs-list-original .cell-name').each do |category|
         categories.push({
-                       title: (category.css('a').first.content)
+                       title: category.css('a').first.content,
+                       link: category.css('a').first['href']
                      })
       end
 
