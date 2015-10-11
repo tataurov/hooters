@@ -97,7 +97,8 @@ module Parser
         end
 
         Girl.all.each do |girl|
-          items = GalleryItem.where("lower(title) LIKE '%#{girl.name.downcase}%'")
+          items = GalleryItem.where("lower(title) LIKE '#{girl.name.downcase}%'")
+          girl.update_attributes(photos_count: items.count)
           items.update_all(girl_id: girl.id)
         end
       end

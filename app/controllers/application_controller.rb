@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
 
   def load_categories
     @categories = Category.all.order(:title)
-    @girls = Girl.all.order(:name)
+    @girls = Girl.where.not(photos_count: 0).order(photos_count: :desc)
   end
 end
