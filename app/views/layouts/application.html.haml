@@ -2,8 +2,17 @@
 %html
   %head
     %title Hooters
+    %link{:href => "https://fonts.googleapis.com/css?family=Lobster", :rel => "stylesheet", :type => "text/css"}/
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = yield
+    .page-body
+      .page
+        .header-wrapper
+          .header.base-width
+            = render 'partials/header'
+        = yield
+        .footer-wrapper
+          .footer.base-width
+            = render 'partials/footer'

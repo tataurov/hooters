@@ -1,0 +1,119 @@
+/* работа с CSS3 */
+@mixin simpleLinearGradient($startColorQ, $finishColorQ, $baseColorQ: '', $postfix: '') {
+  $startColor: unquote($startColorQ);
+  $finishColor: unquote($finishColorQ);
+  $baseColor: unquote($baseColorQ);
+  $postfix: unquote($postfix);
+
+  @if $baseColor == '' {
+    $baseColor: mix($startColor, $finishColor);
+  }
+
+  background-color: $baseColor + $postfix;
+  background: -moz-linear-gradient(top, $startColor, $finishColor) $postfix;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $startColor), color-stop(100%, $finishColor)) $postfix;
+  background: -webkit-linear-gradient(top, $startColor, $finishColor) $postfix;
+  background: -o-linear-gradient(top, $startColor, $finishColor) $postfix;
+  background: -ms-linear-gradient(top, $startColor, $finishColor) $postfix;
+  background: linear-gradient(top, $startColor, $finishColor) $postfix;
+}
+
+@mixin rgbaLinearGradient($startColorQ, $finishColorQ) {
+  $startColor: unquote($startColorQ);
+  $finishColor: unquote($finishColorQ);
+
+  background: -moz-linear-gradient(top, $startColor, $finishColor);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $startColor), color-stop(100%, $finishColor));
+  background: -webkit-linear-gradient(top, $startColor, $finishColor);
+  background: -o-linear-gradient(top, $startColor, $finishColor);
+  background: -ms-linear-gradient(top, $startColor, $finishColor);
+  background: linear-gradient(top, $startColor, $finishColor);
+}
+
+@mixin boxSizing($valueQ) {
+  $value: unquote($valueQ);
+
+  -moz-box-sizing: $value;
+  -webkit-box-sizing: $value;
+  box-sizing: $value;
+}
+
+@mixin boxShadow($valueQ) {
+  $value: unquote($valueQ);
+
+  -webkit-box-shadow: $value;
+  box-shadow: $value;
+}
+
+@mixin backgroundSize($valueQ) {
+  $value: unquote($valueQ);
+
+  -moz-background-size: $value;
+  -webkit-background-size: $value;
+  -o-background-size: $value;
+  background-size: $value;
+}
+
+@mixin userSelect($valueQ) {
+  $value: unquote($valueQ);
+
+  -moz-user-select: $value;
+  -webkit-user-select: $value;
+}
+
+@mixin horizontalLinearGradient($startColorQ, $finishColorQ, $baseColorQ: '') {
+  $startColor: unquote($startColorQ);
+  $finishColor: unquote($finishColorQ);
+  $baseColor: unquote($baseColorQ);
+
+  @if $baseColor == '' {
+    $baseColor: mix($startColor, $finishColor);
+  }
+
+  background-color: $baseColor;
+  background: -moz-linear-gradient(right, $startColor, $finishColor);
+  background: -webkit-gradient(linear, right, right, color-stop(0%, $startColor), color-stop(100%, $finishColor));
+  background: -webkit-linear-gradient(right, $startColor, $finishColor);
+  background: -o-linear-gradient(right, $startColor, $finishColor);
+  background: -ms-linear-gradient(right, $startColor, $finishColor);
+  background: linear-gradient(right, $startColor, $finishColor);
+}
+
+@mixin transform($valueQ) {
+  $value: unquote($valueQ);
+
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -o-transform: $value;
+  -ms-transform: $value;
+  transform: $value;
+}
+
+@mixin transition($valueQ) {
+  $value: unquote($valueQ);
+
+  -webkit-transition: $value;
+  -o-transition: $value;
+  -moz-transition: $value;
+  -ms-transition: $value;
+  -kthtml-transition: $value;
+  transition: $value;
+}
+
+@mixin LinearGradient($startColorQ, $finishColorQ, $startPercent, $finishPercent, $baseColorQ: '') {
+  $startColor: unquote($startColorQ);
+  $finishColor: unquote($finishColorQ);
+  $baseColor: unquote($baseColorQ);
+
+  @if $baseColor == '' {
+    $baseColor: mix($startColor, $finishColor);
+  }
+
+  background-color: $baseColor;
+  background: -moz-linear-gradient(top, $startColorQ $startPercent, $finishColor $finishPercent, $finishColor 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop($startPercent, $startColorQ), color-stop($finishPercent, $finishColor), color-stop(100%, $finishColor));
+  background: -webkit-linear-gradient(top, $startColorQ $startPercent, $finishColor $finishPercent, $finishColor 100%);
+  background: -o-linear-gradient(top, $startColorQ $startPercent, $finishColor $finishPercent, $finishColor 100%);
+  background: -ms-linear-gradient(top, $startColorQ $startPercent, $finishColor $finishPercent, $finishColor 100%);
+  background: linear-gradient(to bottom, $startColorQ $startPercent, $finishColor $finishPercent, $finishColor 100%);
+}

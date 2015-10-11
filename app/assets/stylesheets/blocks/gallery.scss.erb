@@ -1,0 +1,24 @@
+@import "mixins";
+
+.gallery {
+  .gallery-list {
+    text-align: justify;
+    .gallery-item {
+      width: 200px; height: 380px; display: inline-block; vertical-align: top; margin-bottom: 10px;
+      @include boxSizing('border-box');
+      .gallery-item-top {
+        height: 250px; width: 200px; display: table; padding: 8px 0; border-top: 1px solid #000;
+        border-bottom: 1px solid #000; margin-bottom: 4px;
+        .img-cell {
+          display: table-cell; width: 200px; height: 250px; vertical-align: middle;
+          img { max-width: 200px; max-height: 250px; display: block; margin: 0 auto; }
+        }
+      }
+      .gallery-item-bottom {
+        padding: 0 5px; font-size: 18px; line-height: 1.1; text-align: center; border-bottom: 1px solid #000;
+        height: 78px; display: table-cell; width: 200px; vertical-align: middle;
+      }
+      &.dummy { height: 1px; border: 0; }
+    }
+  }
+}

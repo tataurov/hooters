@@ -1,0 +1,13 @@
+@import "../mixins";
+@import "../vars";
+.header-wrapper {
+  padding: 8px 0; position: relative; border-bottom: 1px solid #ccc;
+}
+.header {
+  .logo {
+    background: none !important; font-size: 56px; line-height: 1.4; text-decoration: none;
+    color: #000;
+    &:active,
+    &:hover { text-decoration: none; background: none; color: #000; }
+  }
+}

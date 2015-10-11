@@ -1,4 +1,10 @@
-%ul
-  - @categories.each do |category|
-    %a{href: gallery_url(category.id)}= category.title
+.main-content-wrapper
+  .main-content.base-width
+    .container-16.clearfix
+      - @categories.in_groups(2, false) do |group|
+        .grid-4
+          %ul.category-nav
+            - group.each do |category|
+              %li.category-nav-item
+                %a.ffm.blue-link{href: gallery_url(category.id)}= category.title
 

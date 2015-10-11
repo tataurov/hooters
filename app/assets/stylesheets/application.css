@@ -10,6 +10,16 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+
  *= require_self
+ *= require oftenused/reset
+ *= require oftenused/dim
+ *= require elements/elements
+ *= require elements/structure
+ *= require elements/grid
+ *= require blocks/header
+ *= require blocks/footer
+ *= require blocks/category_nav
+ *= require blocks/gallery
+ *= require blocks/pagination
  */
