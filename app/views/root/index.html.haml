@@ -1,2 +1,4 @@
-- @gallery_items.each do |item|
-  %img{src: item.gallery_item_image.url(:small)}
+%ul
+  - @categories.each do |category|
+    %a{href: gallery_url(category.id)}= category.title
+
