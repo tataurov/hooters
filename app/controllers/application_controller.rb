@@ -6,5 +6,6 @@ class ApplicationController < ActionController::Base
 
   def load_categories
     @categories = Category.all.order(:title)
+    @girls = Girl.all.order(:name)
   end
 end

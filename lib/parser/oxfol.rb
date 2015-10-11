@@ -24,8 +24,7 @@ module Parser
       page = 1
 
       loop do
-	puts category
-	uri = URI.parse(category[:link])
+	      uri = URI.parse(category[:link])
         items = Parser::Oxfol.get_gallery_items(uri.scheme + '://' + uri.host + uri.path + '/page' + page.to_s + '/')
         return if items.count == 0
         Parser::Oxfol.create_gallery_items(items, id)
@@ -52,17 +51,16 @@ module Parser
           raise e
         end
       end
-         objects = []
+      objects = []
 
-          page.css('.js-topic').each do |preview|
-            objects.push({
-                         img: preview.css('img').first['src'].sub!("_250crop", ""),
-                         title: (preview.css('.titleh1').first.content)
-                       })
-          end
+      page.css('.js-topic').each do |preview|
+        objects.push({
+                     img: preview.css('img').first['src'].sub!("_250crop", ""),
+                     title: (preview.css('.titleh1').first.content)
+                   })
+      end
 
-          return objects
-
+      return objects
     end
     
     def self.create_gallery_items(items, category_id)
@@ -91,5 +89,37 @@ module Parser
       categories
     end
 
+    module Names
+      def self.createGirls
+        names = Parser::Oxfol::Names.collectNamesFromGallery
+        names.each do |name|
+          Girl.create(name: name)
+        end
+
+        Girl.all.each do |girl|
+          items = GalleryItem.where("lower(title) LIKE '%#{girl.name.downcase}%'")
+          items.update_all(girl_id: girl.id)
+        end
+      end
+
+      def self.collectNamesFromGallery
+        girls = []
+        GalleryItem.find_in_batches(batch_size: 2000) do |group|
+          group.each do |item|
+            name = item.title.split(' ')
+            if name[1].present?
+              if name[1][0] == name[1][0].upcase
+                new_name = name[0].capitalize + ' ' + name[1].capitalize
+                girls.push(new_name.gsub(',', '')) unless girls.include?(new_name.gsub(',', ''))
+              else
+                girls.push(name[0].capitalize.gsub(',', '')) unless girls.include?(name[0].capitalize.gsub(',', ''))
+              end
+            end
+          end
+        end
+
+        girls
+      end
+    end
   end
 end

@@ -36,8 +36,8 @@ body
 .page { min-width: $min_width; overflow: hidden; }
 .base-width { max-width: $max_width; margin: 0 auto; padding: 0 30px; @include boxSizing('border-box'); }
 
-h1 { font-size: 68px; margin: 0 0 9px; font-family: 'Lobster'; font-weight: normal; margin-left: -2px; text-align: center; line-height: 0.9; }
-h3 { font-size: 38px; margin: -10px 0 16px; font-family: 'Lobster'; font-weight: normal; margin-left: -2px; line-height: 1; }
+h1 { font-size: 58px; margin: 0 0 50px; font-family: 'Lobster'; font-weight: normal; line-height: 1.2; text-align: left; border-bottom: 2px solid; }
+h3 { font-size: 38px; margin: -10px 0 16px; font-family: 'Lobster'; font-weight: normal; margin-left: -2px;  }
 h2 { font-size: 60px; margin: -16px 0 16px; font-family: 'Lobster'; text-align: center;  line-height: 1; }
 
 .content-block {

@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009090232) do
+ActiveRecord::Schema.define(version: 20151011161611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "categories", force: :cascade do |t|
     t.string   "title",      null: false
@@ -32,10 +31,19 @@ ActiveRecord::Schema.define(version: 20151009090232) do
     t.integer  "category_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "girl_id"
   end
 
   add_index "gallery_items", ["category_id"], name: "index_gallery_items_on_category_id", using: :btree
   add_index "gallery_items", ["title"], name: "index_gallery_items_on_title", using: :btree
+
+  create_table "girls", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "girls", ["name"], name: "index_girls_on_name", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.string   "image_file_name",    null: false
