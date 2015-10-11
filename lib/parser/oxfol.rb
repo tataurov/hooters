@@ -6,13 +6,13 @@ module Parser
     def self.download_all_categories
       categories = get_categories
 
-      categories.all.each do |category|
+      categories.each do |category|
         c = Category.create(title: category[:title])
         puts '+++++++++++++++++++++++++++++++++++++++'
         puts 'Started category: ' + category[:title]
         puts '+++++++++++++++++++++++++++++++++++++++'
 
-        Parser::Oxfol.get_items_from_category(category, c.id)
+        next unless Parser::Oxfol.get_items_from_category(category, c.id)
 
         puts '+++++++++++++++++++++++++++++++++++++++'
         puts 'Ends category: ' + category[:title] + ', with time'
@@ -24,11 +24,13 @@ module Parser
       page = 1
 
       loop do
-        items = Parser::Oxfol.get_gallery_items(category[:link] + '/page' + page.to_s + '/')
-        break if items.count == 0
+	puts category
+	uri = URI.parse(category[:link])
+        items = Parser::Oxfol.get_gallery_items(uri.scheme + '://' + uri.host + uri.path + '/page' + page.to_s + '/')
+        return if items.count == 0
         Parser::Oxfol.create_gallery_items(items, id)
         puts '+++++++++++++++++++++++++++++++++++++++'
-        puts 'Page: ' + page + ', Category:' + category[:title] + ' loaded.'
+        puts 'Page: ' + page.to_s + ', Category:' + category[:title] + ' loaded.'
         puts '+++++++++++++++++++++++++++++++++++++++'
         page += 1
       end
@@ -37,20 +39,32 @@ module Parser
     def self.get_gallery_items(page)
       source = 'http://oxfol.org/b/'
 
-      page = Nokogiri::HTML(open(source.to_s + page))
 
-      objects = []
+      begin
+        file = open(page)
+        page = Nokogiri::HTML(file) do |page|
 
-      page.css('.js-topic').each do |preview|
-        objects.push({
-                       img: preview.css('img').first['src'].sub!("_250crop", ""),
-                       title: (preview.css('.titleh1').first.content)
-                     })
+        end
+      rescue OpenURI::HTTPError => e
+        if e.message == '404 Not Found'
+          # handle 404 error
+        else
+          raise e
+        end
       end
+         objects = []
 
-      objects
+          page.css('.js-topic').each do |preview|
+            objects.push({
+                         img: preview.css('img').first['src'].sub!("_250crop", ""),
+                         title: (preview.css('.titleh1').first.content)
+                       })
+          end
+
+          return objects
+
     end
-
+    
     def self.create_gallery_items(items, category_id)
       items.each do |item|
         new_item = GalleryItem.create(title: item[:title], category_id: category_id)

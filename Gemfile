@@ -47,6 +47,9 @@ gem 'haml', '~> 4.0.5'
 
 gem 'nokogiri'
 
+gem 'unicorn'
+gem 'unicorn-worker-killer'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
