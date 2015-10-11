@@ -9,7 +9,7 @@
             - next unless item.gallery_item_image.present?
             %li.gallery-item
               .gallery-item-top
-                .img-cell
+                %a.fancybox.img-cell{href: item.gallery_item_image.url, rel: 'girls'}
                   %img{src: item.gallery_item_image.url(:small)}
               .gallery-item-bottom
                 .item-description= item.title

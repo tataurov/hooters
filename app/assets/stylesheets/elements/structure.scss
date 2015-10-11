@@ -31,7 +31,7 @@ body
 .ffm { font-family: 'Lobster', cursive; }
 
 .page-body {
-  position: relative; min-width: 991px; z-index: 2;
+  position: relative; min-width: $min_width; z-index: 2;
 }
 .page { min-width: $min_width; overflow: hidden; }
 .base-width { max-width: $max_width; margin: 0 auto; padding: 0 30px; @include boxSizing('border-box'); }

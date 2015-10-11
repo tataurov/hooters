@@ -49,6 +49,8 @@ gem 'nokogiri'
 
 gem 'unicorn'
 gem 'unicorn-worker-killer'
+gem 'lazyload-rails'
+gem 'fancybox2-rails', '~> 0.2.8'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
