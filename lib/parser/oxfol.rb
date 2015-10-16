@@ -2,7 +2,7 @@ module Parser
   module Oxfol
     require 'open-uri'
     require 'nokogiri'
-
+    IMAGES = []
     def self.download_all_categories
       categories = get_categories
 
@@ -65,10 +65,11 @@ module Parser
     
     def self.create_gallery_items(items, category_id)
       items.each do |item|
+        next if IMAGES.include? item[:img]
         new_item = GalleryItem.create(title: item[:title], category_id: category_id)
         img = new_item.build_gallery_item_image
         img.download_from_url(item[:img])
-
+        IMAGES.push item[:img]
         new_item.save
       end
     end
