@@ -4,18 +4,19 @@ module Parser
     require 'nokogiri'
     IMAGES = []
     def self.download_all_categories
-      categories = get_categories
+      create_categories
 
-      categories.each do |category|
-        c = Category.create(title: category[:title])
+      ActiveRecord::Base.logger = nil
+
+      Category.all.each do |category|
         puts '+++++++++++++++++++++++++++++++++++++++'
-        puts 'Started category: ' + category[:title]
+        puts 'Started category: ' + category.title
         puts '+++++++++++++++++++++++++++++++++++++++'
 
-        next unless Parser::Oxfol.get_items_from_category(category, c.id)
+        next unless Parser::Oxfol.get_items_from_category(category, category.id)
 
         puts '+++++++++++++++++++++++++++++++++++++++'
-        puts 'Ends category: ' + category[:title] + ', with time'
+        puts 'Ends category: ' + category.title + ', with time'
         puts '+++++++++++++++++++++++++++++++++++++++'
       end
     end
@@ -24,12 +25,12 @@ module Parser
       page = 1
 
       loop do
-	      uri = URI.parse(category[:link])
+	      uri = URI.parse(category.link)
         items = Parser::Oxfol.get_gallery_items(uri.scheme + '://' + uri.host + uri.path + '/page' + page.to_s + '/')
         return if items.count == 0
         Parser::Oxfol.create_gallery_items(items, id)
         puts '+++++++++++++++++++++++++++++++++++++++'
-        puts 'Page: ' + page.to_s + ', Category:' + category[:title] + ' loaded.'
+        puts 'Page: ' + page.to_s + ', Category:' + category.title + ' loaded.'
         puts '+++++++++++++++++++++++++++++++++++++++'
         page += 1
       end
@@ -65,16 +66,21 @@ module Parser
     
     def self.create_gallery_items(items, category_id)
       items.each do |item|
-        next if IMAGES.include? item[:img]
-        new_item = GalleryItem.create(title: item[:title], category_id: category_id)
-        img = new_item.build_gallery_item_image
-        img.download_from_url(item[:img])
-        IMAGES.push item[:img]
-        new_item.save
+        image = IMAGES.find{ |image| image[:img] == item[:img] }
+        if image.present?
+          GalleryItemCategory.create(category_id: category_id, gallery_item_id: image[:id])
+        else
+          new_item = GalleryItem.create(title: item[:title])
+          GalleryItemCategory.create(category_id: category_id, gallery_item_id: new_item.id)
+          img = new_item.build_gallery_item_image
+          img.download_from_url(item[:img])
+          IMAGES.push({img: item[:img], id: new_item.id})
+          new_item.save
+        end
       end
     end
 
-    def self.get_categories
+    def self.create_categories
       source = 'http://oxfol.org/blogs'
       page = Nokogiri::HTML(open(source.to_s))
 
@@ -87,7 +93,9 @@ module Parser
                      })
       end
 
-      categories
+      categories.each do |category|
+        Category.create(title: category[:title], link: category[:link])
+      end
     end
 
     module Names
