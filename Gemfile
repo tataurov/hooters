@@ -14,8 +14,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'hstore_accessor'
-# Use Paperclip for attachments
-gem 'paperclip', '~> 4.2'
+
 gem 'will_paginate'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -27,9 +26,18 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveAdmin
-gem 'activeadmin', github: 'activeadmin'
+gem 'rails_admin', '0.6.8'
+gem 'paperclip', '~> 4.3'
+gem 'rails_admin_jcrop'
 # rich text editor
-gem 'ckeditor'
+# gem 'ckeditor'
+
+# Use Devise for authentication
+gem 'devise-bootstrap-views'
+
+# Authorization abilities
+# Search Engine Optimization plugin
+gem 'meta-tags'
 
 # Use Devise for authentication
 gem 'devise'
