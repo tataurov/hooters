@@ -60,6 +60,15 @@ gem 'unicorn-worker-killer'
 gem 'lazyload-rails'
 gem 'fancybox2-rails', '~> 0.2.8'
 
+# Deploy features
+gem 'capistrano'
+gem 'capistrano-db-tasks', require: false
+gem 'capistrano-nginx-unicorn'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+gem 'capistrano-rvm'
+gem 'sshkit-sudo'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
