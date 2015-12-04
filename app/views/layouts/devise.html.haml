@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %base{href: '/'}
+    %title SeeBoobs
+    = stylesheet_link_tag    'package/devise', media: 'all'
+    = javascript_include_tag 'package/devise'
+    = csrf_meta_tags
+  %body
+    .page
+      = yield
+
+
