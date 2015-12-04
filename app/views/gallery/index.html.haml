@@ -6,10 +6,9 @@
 
         %ul.gallery-list
           - @gallery_items.each do |item|
-            - next unless item.gallery_item_image.present?
             %li.gallery-item
               .gallery-item-top
-                %a.fancybox.img-cell{href: item.gallery_item_image.url(:main_image), rel: 'girls'}
+                %a.fancybox.img-cell{href: item.gallery_item_image.url(:main_image) || nil, rel: 'girls'}
                   %img{src: item.gallery_item_image.url(:small)}
               .gallery-item-bottom
                 .item-description= item.title

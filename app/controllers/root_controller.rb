@@ -1,5 +1,5 @@
 class RootController < ApplicationController
   def index
-    @girls = GalleryItem.order(:created_at).limit(50)
+    @girls = GalleryItem.all.sample(50)
   end
 end

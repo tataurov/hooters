@@ -1,9 +1,19 @@
 .girls-list {
   list-style: none; text-align: justify;
   .girls-list-item {
-    display: inline-block; font-size: 17px; margin: 0 15px 7px; vertical-align: top;
-    .tn-link { font-style: italic; }
-    .count { font-size: 12px; position: relative; bottom: -4px; color: #7b7b7b; }
+    display: inline-block; font-size: 17px; margin: 0 15px 30px; vertical-align: top;
+    width: 100px; text-align: center;
+    .title { font-style: italic; min-height: 2.4em; line-height: 1.2em; display: block; font-size: 15px; }
+    .count { font-size: 12px; position: relative; color: #7b7b7b; }
+    .gl-top {
+      height: 100px; width: 100px; border-radius: 4px; overflow: hidden; position: relative;
+      margin-bottom: 5px;
+      .girl-photo {
+        width: 250px; height: 250px; display: table-cell; position: absolute;
+        left: 50%; top: 50%; margin: -54px 0 0 -127px; vertical-align: middle; text-align: center;
+        img { display: inline-block; }
+      }
+    }
   }
 }
 

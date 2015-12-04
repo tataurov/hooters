@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :load_categories
   layout :layout_by_resource
 
+  include Seo
+
   def load_categories
     @categories = Category.all.order(:title)
     @girls = Girl.where.not(photos_count: 0).order(photos_count: :desc)
