@@ -1,0 +1,9 @@
+.main-content-wrapper
+  .main-content.base-width
+    .container-16.clearfix
+      .grid-16.alpha.omega
+        %ul.girls-list
+          - @girls.each do |girl|
+            %li.girls-list-item
+              %a.ffm.blue-link{href: girl_url(girl.id)}= girl.name
+              %span.count= girl.photos_count

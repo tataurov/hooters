@@ -1,0 +1,19 @@
+.top-nav {
+  list-style: none; padding-top: 44px;
+  .tn-item {
+    display: inline-block; font-size: 23px; margin: 0 15px;
+    .tn-link { font-style: italic; }
+    &.active {
+      .tn-link { color: #000; text-decoration: none; cursor: default; }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .top-nav {
+    list-style: none; padding-top: 15px;
+    .tn-item {
+      display: inline-block; font-size: 17px; margin: 0 5px 10px;
+    }
+  }
+}

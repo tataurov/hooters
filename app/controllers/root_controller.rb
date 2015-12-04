@@ -1,5 +1,5 @@
 class RootController < ApplicationController
   def index
-    @gallery_items = GalleryItem.where category_id: 45
+    @girls = GalleryItem.order(:created_at).limit(50)
   end
 end

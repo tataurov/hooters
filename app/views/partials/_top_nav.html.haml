@@ -1,0 +1,8 @@
+%ul.top-nav.clearfix
+  %li.tn-item{class: current_page?(root_url) && :active}
+    %a.tn-link{:href => root_url} Home
+
+  %li.tn-item{class: current_page?(categories_url) && :active}
+    %a.tn-link{:href => categories_url} Categories
+  %li.tn-item{class: current_page?(girls_url) && :active}
+    %a.tn-link{:href => girls_url} Girls

@@ -7,7 +7,20 @@
   .logo {
     background: none !important; font-size: 56px; line-height: 1.4; text-decoration: none;
     color: #000;
+    span {
+      transition: all .2s linear;
+      &.l1 { color: $red }
+    }
     &:active,
-    &:hover { text-decoration: none; background: none; color: #000; }
+    &:hover {
+      text-decoration: none; background: none; color: #000;
+      .l1 { text-shadow: 0 0  3px $red; color: #ff1500; }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header-wrapper {
+    .grid-8 { width: 96%; text-align: center; }
   }
 }

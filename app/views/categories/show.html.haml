@@ -1,0 +1,9 @@
+.main-content-wrapper
+  .main-content.base-width
+    .container-16.clearfix.categories-wrapper
+      - @categories.in_groups(4, false) do |group|
+        .grid-4
+          %ul.category-nav
+            - group.each do |category|
+              %li.category-nav-item
+                %a.ffm.blue-link{href: gallery_url(category.id)}= category.title

@@ -22,5 +22,7 @@
  *= require blocks/category_nav
  *= require blocks/gallery
  *= require blocks/pagination
+ *= require blocks/top_nav
+ *= require blocks/girls_list
  *= require fancybox
  */
