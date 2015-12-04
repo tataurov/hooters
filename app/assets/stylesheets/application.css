@@ -26,3 +26,5 @@
  *= require blocks/girls_list
  *= require fancybox
  */
+
+.yandex-counter { height: 1px; width: 1px; overflow: hidden; }
