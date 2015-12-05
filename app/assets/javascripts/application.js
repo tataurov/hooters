@@ -1,22 +1,33 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require fancybox
-//= require_tree .
+/**
+ * Инициализация приложения
+ *
+ **/
 
+$doc.ready(function() {
+  var item;
 
-$(document).ready(function() {
-  $("a.fancybox").fancybox();
+  if (!app.modules) {
+    return false;
+  }
+
+  for (item in app.modules) {
+    if (app.modules[item].ready) {
+      app.modules[item].ready();
+    }
+  }
+});
+
+$win.load(function() {
+  if (!app.modules) {
+    return false;
+  }
+
+  setTimeout(function() {
+    var item;
+    for (item in app.modules) {
+      if (app.modules[item].load) {
+        app.modules[item].load();
+      }
+    }
+  }, 10);
 });

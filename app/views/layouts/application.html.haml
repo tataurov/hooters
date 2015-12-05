@@ -4,8 +4,11 @@
     = display_meta_tags(page_meta_tags)
     %meta{:content => "width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
     %link{:href => "https://fonts.googleapis.com/css?family=Lobster", :rel => "stylesheet", :type => "text/css"}/
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'package/application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'package/jquery-1.11.3'
+    :javascript
+      var app = app || {config: {}, modules: {coreApplicationBase: {}, application: {}}};
+
     = csrf_meta_tags
   %body
     .page-body
@@ -17,4 +20,6 @@
         .footer-wrapper
           .footer.base-width
             = render 'partials/footer'
+    = render 'partials/eighteen_popup' unless cookies[:has_eighteen] == '1'
     = render 'partials/seo/yandex_counter'
+    = javascript_include_tag 'package/application', 'data-turbolinks-track' => true

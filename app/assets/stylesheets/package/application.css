@@ -24,6 +24,8 @@
  *= require blocks/pagination
  *= require blocks/top_nav
  *= require blocks/girls_list
+ *= require blocks/popup
+ *= require blocks/eighteen_popup
  *= require fancybox
  */
 
