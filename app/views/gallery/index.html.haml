@@ -11,7 +11,11 @@
                 %a.fancybox.img-cell{href: item.gallery_item_image.url(:main_image) || nil, rel: 'girls'}
                   %img{src: item.gallery_item_image.url(:small)}
               .gallery-item-bottom
-                .item-description= item.title
+                .item-description
+                  - if item.girl.present?
+                    %a{href: girl_path(item.girl.id_with_slug)}= item.title
+                  - else
+                    = item.title
           - 5.times do
             %li.gallery-item.dummy
 

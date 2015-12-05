@@ -6,4 +6,4 @@
           %ul.category-nav
             - group.each do |category|
               %li.category-nav-item
-                %a.ffm.blue-link{href: gallery_url(category.id)}= category.title
+                %a.ffm.blue-link{href: gallery_url(category.id_with_slug)}= category.title

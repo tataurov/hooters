@@ -13,7 +13,7 @@
                 %a.girl-photo{href: girl_url(girl.id)}
                   %img{src: girl.gallery_items.first.gallery_item_image.url(:small)}
               .title
-                %a.ffm.blue-link{href: girl_url(girl.id)}= girl.name
+                %a.ffm.blue-link{href: girl_url(girl.id_with_slug)}= girl.name
               .tac.count
                 photos:
                 %span= girl.photos_count

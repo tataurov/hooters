@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   get 'gallery/:id' => 'gallery#index', as: :gallery
-  resources :girls
+  resources :girls, only: [:index, :show]
   resource :categories, only: [:show]
 
 end

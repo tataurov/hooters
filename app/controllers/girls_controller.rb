@@ -7,6 +7,12 @@ class GirlsController < ApplicationController
   end
 
   def show
-    @girl = Girl.find_by_id(params[:id])
+    redirect_to :action => :show, id: girl.id_with_slug unless params[:id] == girl.id_with_slug
+    girl
+  end
+
+  def girl
+    return @girl if defined? @girl
+    @girl = Girl.find_by_id_with_slug(params[:id])
   end
 end
