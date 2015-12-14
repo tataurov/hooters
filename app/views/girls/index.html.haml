@@ -6,8 +6,6 @@
         .paginate= will_paginate @gallery_items
         %ul.girls-list
           - @girls.each do |girl|
-            - next if girl.gallery_items.count == 0
-
             %li.girls-list-item
               .gl-top
                 %a.girl-photo{href: girl_url(girl.id)}
