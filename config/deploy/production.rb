@@ -42,9 +42,23 @@ namespace :assets do
   end
 end
 
+namespace :sitemap do
+  desc 'Refresh sitemap'
+  task :refresh do
+    on roles(:web) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'sitemap:refresh'
+        end
+      end
+    end
+  end
+end
+
 namespace :deploy do
   before :compile_assets, 'cache:clear'
   after :compile_assets, 'assets:no_digest'
+  after :compile_assets, 'sitemap:refresh'
 end
 
 # ===== BUNDLER ============

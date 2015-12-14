@@ -38,6 +38,8 @@ gem 'devise-bootstrap-views'
 # Authorization abilities
 # Search Engine Optimization plugin
 gem 'meta-tags'
+gem 'lograge'
+gem 'sitemap_generator'
 
 # Use Devise for authentication
 gem 'devise'
