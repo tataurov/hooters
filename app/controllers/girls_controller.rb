@@ -13,11 +13,19 @@ class GirlsController < ApplicationController
 
   def show
     redirect_to :action => :show, id: girl.id_with_slug unless params[:id] == girl.id_with_slug
+    set_seo_context
     girl
   end
 
   def girl
     return @girl if defined? @girl
     @girl = Girl.find_by_id_with_slug(params[:id])
+  end
+
+  def set_seo_context
+    @seo_context = {
+      name: girl.name,
+      photos_count: girl.photos_count
+    }
   end
 end

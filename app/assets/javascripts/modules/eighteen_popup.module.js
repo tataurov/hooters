@@ -11,7 +11,7 @@ app.modules.eighteenPopup = (function(self) {
           $('.js-eighteen-popup, .js-page-cover').removeClass('active');
         }, 300);
 
-        $.cookie('has_eighteen', 1);
+        $.cookie('has_eighteen', 1, {expires : 365, path: '/'});
         e.preventDefault();
       });
     };
