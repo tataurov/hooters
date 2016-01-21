@@ -2,6 +2,8 @@ class Girl < ActiveRecord::Base
   URL_SEPARATOR = '_'
 
   has_many :gallery_items, dependent: :destroy
+  accepts_nested_attributes_for :gallery_items
+
   validates_presence_of :name, :slug
   before_validation :generate_slug
 
